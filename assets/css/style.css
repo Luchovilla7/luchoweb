@@ -1205,6 +1205,7 @@ footer {
 
   .hamburger {
     display: block;
+    position: relative;
     z-index: 1000;
   }
 
@@ -1228,7 +1229,7 @@ footer {
 
   .footer-links ul {
     display: none;
-  }
+  } 
 
   .hero-text h1 {
     font-size: 2.3rem;
