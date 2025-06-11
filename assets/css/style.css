@@ -284,6 +284,10 @@ header .container {
   box-shadow: var(--shadow);
 }
 
+.image-container img {
+  border-radius: 50%;
+}
+
 .circle-bg {
   position: absolute;
   width: 100%;
