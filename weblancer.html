@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weblancer - Transforma tu Carrera Freelance</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Sticky CTA Buttons */
+        .sticky-cta {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(100px);
+            transition: all 0.3s ease;
+        }
+
+        .sticky-cta.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .sticky-btn {
+            background: linear-gradient(135deg, #00d4ff 0%, #a855f7 100%);
+            color: white;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            animation: pulse 2s infinite;
+        }
+
+        .sticky-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.4);
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: radial-gradient(ellipse at center, rgba(0, 212, 255, 0.1) 0%, transparent 70%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2300d4ff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #00d4ff 0%, #a855f7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+            color: #b0b0b0;
+            margin-bottom: 3rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #00d4ff 0%, #a855f7 100%);
+            color: white;
+            padding: 20px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.4);
+        }
+
+        /* Section Styling */
+        .section {
+            padding: 80px 0;
+            position: relative;
+        }
+
+        .section h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #00d4ff;
+        }
+
+        .section h3 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #a855f7;
+        }
+
+        .section p {
+            font-size: 1.1rem;
+            color: #d0d0d0;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Problem Section */
+        .problem {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.1) 0%, rgba(0, 212, 255, 0.1) 100%);
+            border-radius: 20px;
+            padding: 60px 40px;
+            margin: 40px 0;
+            text-align: center;
+        }
+
+        /* Benefits Grid */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 60px 0;
+        }
+
+        .benefit-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: left;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 212, 255, 0.5);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.1);
+        }
+
+        .benefit-card h4 {
+            color: #00d4ff;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%);
+            border-radius: 20px;
+            padding: 60px 40px;
+            margin: 60px 0;
+            text-align: center;
+        }
+
+        .price-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .price-card {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .price-card:hover {
+            transform: scale(1.05);
+            border-color: rgba(0, 212, 255, 0.8);
+        }
+
+        .price {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #00d4ff;
+            margin: 20px 0;
+        }
+
+        /* Bonus List */
+        .bonus-list {
+            background: rgba(168, 85, 247, 0.1);
+            border-radius: 15px;
+            padding: 40px;
+            margin: 40px 0;
+        }
+
+        .bonus-item {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            font-size: 1.1rem;
+        }
+
+        .bonus-item::before {
+            content: '🎁';
+            margin-right: 15px;
+            font-size: 1.5rem;
+        }
+
+        /* Guarantee Section */
+        .guarantee {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(0, 212, 255, 0.1) 100%);
+            border: 2px solid rgba(34, 197, 94, 0.3);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 60px 0;
+            text-align: center;
+        }
+
+        .guarantee-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+            font-size: 1.1rem;
+        }
+
+        .guarantee-item::before {
+            content: '✔';
+            color: #22c55e;
+            margin-right: 15px;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        /* Testimonial */
+        .testimonial {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.1) 0%, rgba(0, 212, 255, 0.1) 100%);
+            border-radius: 20px;
+            padding: 50px;
+            margin: 60px 0;
+            text-align: center;
+            font-style: italic;
+            font-size: 1.2rem;
+            position: relative;
+        }
+
+        .testimonial::before {
+            content: '"';
+            font-size: 4rem;
+            color: #00d4ff;
+            position: absolute;
+            top: 10px;
+            left: 30px;
+        }
+
+        /* Urgency Section */
+        .urgency {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%);
+            border: 2px solid rgba(239, 68, 68, 0.3);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 60px 0;
+            text-align: center;
+            animation: urgency-pulse 3s infinite;
+        }
+
+        @keyframes urgency-pulse {
+            0%, 100% { box-shadow: 0 0 0 rgba(239, 68, 68, 0.3); }
+            50% { box-shadow: 0 0 30px rgba(239, 68, 68, 0.5); }
+        }
+
+        .urgency h3 {
+            color: #ef4444;
+        }
+
+        /* Final CTA */
+        .final-cta {
+            text-align: center;
+            padding: 80px 0;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.1) 0%, transparent 70%);
+        }
+
+        .mockup-img img{
+            width: 60vw;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .section {
+                padding: 60px 0;
+            }
+            
+            .sticky-cta {
+                bottom: 10px;
+                right: 10px;
+            }
+            
+            .sticky-btn {
+                padding: 12px 20px;
+                font-size: 14px;
+            }
+            
+            .problem, .pricing, .guarantee, .testimonial, .urgency {
+                padding: 40px 20px;
+                margin: 30px 0;
+            }
+
+            .mockup-img img {
+                width: 95vw;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Sticky CTA -->
+    <div class="sticky-cta" id="stickyCTA">
+        <a href="#" class="sticky-btn">🚀 ¡Quiero Acceder Ahora!</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content fade-in">
+                <h1>El sistema que transforma diseñadores invisibles en freelancers buscados</h1>
+                <p>Aprendé a vender sin ser invasivo, organizá tu negocio con estrategia y empezá a trabajar con clientes premium que valoran tu talento.</p>
+                <a href="#" class="cta-button">✅ Quiero Profesionalizar Mi Negocio Freelance</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Identification -->
+    <section class="section">
+        <div class="container">
+            <div class="problem fade-in">
+                <h2>💥 ¿Te sentís estancado como diseñador freelance?</h2>
+                <p>Sabés diseñar, pero te cuesta vender. Cobrás poco, trabajás con clientes que no te valoran y sentís que no avanzás.</p>
+                <p><strong>👉 No es tu culpa. Nadie te enseñó a vender, organizarte ni posicionarte.</strong></p>
+                <h3>Weblancer Pro es la solución concreta a ese caos.</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transformation Promise -->
+    <section class="section">
+        <div class="container">
+            <div class="fade-in">
+                <h2>🌟 ¿Qué pasaría si pudieras…?</h2>
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <h4>💼 Vender sin sentirte agresivo</h4>
+                        <p>Aprendé técnicas naturales de venta que se sienten auténticas</p>
+                    </div>
+                    <div class="benefit-card">
+                        <h4>🎯 Atraer mejores clientes y cobrar más</h4>
+                        <p>Posicionate como el experto premium que realmente sos</p>
+                    </div>
+                    <div class="benefit-card">
+                        <h4>✨ Tener una marca personal profesional</h4>
+                        <p>Destacate en un mercado saturado con tu identidad única</p>
+                    </div>
+                    <div class="benefit-card">
+                        <h4>⚡ Organizar tus procesos como un negocio serio</h4>
+                        <p>Sistemas que te permitan escalar sin perder calidad</p>
+                    </div>
+                    <div class="benefit-card">
+                        <h4>🤖 Tener a la inteligencia artificial como aliado 24/7</h4>
+                        <p>Complementando tu trabajo con la IA para que puedas crecer en tareas específicas</p>
+                    </div>
+                    <div class="benefit-card">
+                        <h4>👥 Con guía, comunidad y paso a paso</h4>
+                        <p>No estás solo en este camino de transformación</p>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 40px;">
+                    <h3>👉 Eso es exactamente lo que vas a lograr con <span style="color: #00d4ff;">Weblancer Pro</span>.</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Offer Presentation -->
+    <section class="section">
+        <div class="container">
+            <div class="fade-in">
+                <h2>🎁 Weblancer: Tu Sistema Completo</h2>
+                <p>Weblancer no es un curso. Es un sistema completo con mentoría, comunidad y herramientas prácticas para transformar tu carrera freelance en <strong>90 días o incluso menos</strong>.</p>
+                
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <h4>🚀 Ruta de Retos Weblancer 4x4</h4>
+                        <p>Metodología probada paso a paso, nada de humo</p>
+                    </div>
+                    <div class="benefit-card">
+                        <h4>🧠 Mentorías grupales semanales</h4>
+                        <p>Acompañamiento directo y personalizado</p>
+                    </div>
+                    <div class="benefit-card">
+                        <h4>📄 Plantillas de prospección, presupuestos y contratos.</h4>
+                        <p>Plantillas editables listas para usar para tus servicios web</p>
+                    </div>
+                    <div class="benefit-card">
+                        <h4>🌐 Templates Webs Code y No-Code</h4>
+                        <p>Plantillas webs de código y de CMS listas para editarlas y utilizarlas para tus clientes</p>
+                    </div>
+                    <div class="benefit-card">
+                        <h4>🛠️ Pack de herramientas premium para Diseño Web</h4>
+                        <p>Herramientas de Plugins Premiums como Elementor Pro para Wordpress y mucho más.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <h4>👥 Comunidad privada exclusiva</h4>
+                        <p>Conectá con freelancers de tu nivel</p>
+                    </div>
+                </div>
+                
+                <p style="text-align: center; font-size: 1.3rem; font-weight: 700; color: #00d4ff; margin-top: 40px;">
+                    👉 Todo lo que necesitás para pasar de diseñador perdido a profesional premium que cobra lo que merece.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Benefits -->
+    <section class="section">
+        <div class="container">
+            <div class="fade-in">
+                <h2>🎯 Beneficios Clave</h2>
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <h4>✅ Aprendé a vender sin sentirte vendedor</h4>
+                    </div>
+                    <div class="benefit-card">
+                        <h4>✅ Posicionate como diseñador premium</h4>
+                    </div>
+                    <div class="benefit-card">
+                        <h4>✅ Cerrá clientes con mejores condiciones</h4>
+                    </div>
+                    <div class="benefit-card">
+                        <h4>✅ Aumentá tus ingresos sin trabajar más</h4>
+                    </div>
+                    <div class="benefit-card">
+                        <h4>✅ Escalá con foco, estrategia y mentalidad ganadora</h4>
+                    </div>
+                    <div class="benefit-card">
+                        <h4>✅ Automatizá tareas con IA y ganá tiempo</h4>
+                    </div>
+                    <div class="benefit-card">
+                        <h4>✅ Conectá con colegas que te inspiran</h4>
+                    </div>
+                    <div class="benefit-card">
+                        <h4>✅ Evitá años de prueba y error</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="section">
+        <div class="container">
+            <div class="pricing fade-in">
+                <h2>💎 Stack de Valor + Precios</h2>
+                <h3>💥 Todo esto por solo:</h3>
+                
+                <div class="price-options">
+                    <div class="price-card">
+                        <h4>Mensual</h4>
+                        <div class="price">$25 USD</div>
+                        <p>Por mes</p>
+                    </div>
+                    <div class="price-card">
+                        <h4>Trimestral</h4>
+                        <div class="price">$67 USD</div>
+                        <p>Cada 3 meses</p>
+                    </div>
+                    <div class="price-card" style="border-color: #00d4ff; transform: scale(1.05);">
+                        <h4>⭐ Anual</h4>
+                        <div class="price">$250 USD</div>
+                        <p>Con beneficios exclusivos</p>
+                    </div>
+                </div>
+
+                <div class="bonus-list">
+                    <h3>📦 +5 BONOS DE ALTO VALOR:</h3>
+                    <div class="bonus-item">Mini Curso "Client Magnet" – $97</div>
+                    <div class="bonus-item">Guía Anti Clientes Tóxicos – $67</div>
+                    <div class="bonus-item">Audit Kit Marca Personal – $87</div>
+                    <div class="bonus-item">Calendario de Productividad Freelance – $57</div>
+                    <div class="bonus-item">Taller "Descubrí tu Nicho Rentable" – $77</div>
+                </div>
+
+                <p style="font-size: 1.5rem; font-weight: 700; color: #a855f7;">💰 Valor real total: $1.700 USD+</p>
+                <p style="font-size: 2rem; font-weight: 900; color: #00d4ff;">👉 Hoy desde solo $25/mes</p>
+                
+                <a href="#" class="cta-button" style="margin-top: 30px;">🟩 Quiero Acceder Ahora</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Guarantees -->
+    <section class="section">
+        <div class="container">
+            <div class="guarantee fade-in">
+                <h2>🛡️ Garantías que Inspiran Confianza</h2>
+                <div class="guarantee-item">7 días sin preguntas</div>
+                <div class="guarantee-item">Aplicás y no ves progreso = te devolvemos</div>
+                <div class="guarantee-item">Si no avanzás, te acompañamos hasta lograrlo</div>
+                <p style="font-size: 1.3rem; font-weight: 700; margin-top: 30px;">
+                    👉 Entrás sin riesgo. Te quedás por los resultados.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonial -->
+    <section class="section">
+        <div class="container">
+            <div class="testimonial fade-in">
+                <h2>👤 Validación Personal</h2>
+                <p>Yo ya estuve donde estás: cobrando poco, perdido y sin saber vender. Hoy vivo de mi negocio freelance, y quiero ayudarte a que vos también lo logres. Weblancer Pro es el sistema que me hubiese encantado tener al empezar. <strong>No estás solo.</strong></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Urgency -->
+    <section class="section">
+        <div class="container">
+            <div class="urgency fade-in">
+                <h2>⏳ Oferta Exclusiva - Cupos Limitados</h2>
+                <h3>🎁 Oferta exclusiva para miembros fundadores</h3>
+                <p>🕒 Cupos limitados – Solo por este lanzamiento</p>
+                <p>🔥 Accedé ahora y desbloqueá todos los bonus + mentorías en vivo</p>
+                <a href="#" class="cta-button" style="margin-top: 30px;">🟦 Sí, Quiero Profesionalizar Mi Negocio Freelance</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final Close -->
+    <section class="final-cta">
+        <div class="container">
+            <div class="fade-in">
+                <h2>✅ Tu Momento es Ahora</h2>
+                <p style="font-size: 1.3rem; margin-bottom: 40px;">
+                    Weblancer Pro transforma diseñadores web técnicos en freelancers premium. Tenés el talento. Lo que te falta es el sistema.
+                </p>
+                <div class="mockup-img">
+                    <img src="assets/img/mockup.png" alt="">
+                </div>
+                <a href="#" class="cta-button" style="font-size: 1.3rem; padding: 25px 50px;">
+                    🟨 Quiero Convertirme en Freelancer Premium
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Sticky CTA functionality
+        window.addEventListener('scroll', function() {
+            const stickyCTA = document.getElementById('stickyCTA');
+            const scrollPosition = window.scrollY;
+            
+            if (scrollPosition > 800) {
+                stickyCTA.classList.add('show');
+            } else {
+                stickyCTA.classList.remove('show');
+            }
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Add click tracking (you can replace with your actual tracking)
+        document.querySelectorAll('.cta-button, .sticky-btn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                console.log('CTA clicked:', this.textContent);
+                // Add your conversion tracking here
+                alert('¡Perfecto! Aquí conectarías con tu sistema de pagos.');
+            });
+        });
+
+        // Add smooth scrolling for better UX
+        document.documentElement.style.scrollBehavior = 'smooth';
+    </script>
+</body>
+</html>
