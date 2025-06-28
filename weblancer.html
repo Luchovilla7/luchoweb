@@ -408,7 +408,7 @@
 <body>
     <!-- Sticky CTA -->
     <div class="sticky-cta" id="stickyCTA">
-        <a href="#" class="sticky-btn">🚀 ¡Quiero Acceder Ahora!</a>
+        <a href="#cta" class="sticky-btn">🚀 ¡Quiero Acceder Ahora!</a>
     </div>
 
     <!-- Hero Section -->
@@ -417,7 +417,7 @@
             <div class="hero-content fade-in">
                 <h1>El sistema que transforma diseñadores invisibles en freelancers buscados</h1>
                 <p>Aprendé a vender sin ser invasivo, organizá tu negocio con estrategia y empezá a trabajar con clientes premium que valoran tu talento.</p>
-                <a href="#" class="cta-button">✅ Quiero Profesionalizar Mi Negocio Freelance</a>
+                <a href="#cta" class="cta-button">✅ Quiero Profesionalizar Mi Negocio Freelance</a>
             </div>
         </div>
     </section>
@@ -574,18 +574,17 @@
                 </div>
 
                 <div class="bonus-list">
-                    <h3>📦 +5 BONOS DE ALTO VALOR:</h3>
-                    <div class="bonus-item">Mini Curso "Client Magnet" – $97</div>
-                    <div class="bonus-item">Guía Anti Clientes Tóxicos – $67</div>
-                    <div class="bonus-item">Audit Kit Marca Personal – $87</div>
-                    <div class="bonus-item">Calendario de Productividad Freelance – $57</div>
-                    <div class="bonus-item">Taller "Descubrí tu Nicho Rentable" – $77</div>
+                    <h3>📦 +5 BONOS DE IA DE ALTO VALOR:</h3>
+                    <div class="bonus-item">GPT Estructurador Web IA</div>
+                    <div class="bonus-item">GPT Filtrador de clientes Web</div>
+                    <div class="bonus-item">GPT Propuesta Perfecta</div>
+                    <div class="bonus-item">GPT Cierre de ventas</div>
                 </div>
 
                 <p style="font-size: 1.5rem; font-weight: 700; color: #a855f7;">💰 Valor real total: $1.700 USD+</p>
                 <p style="font-size: 2rem; font-weight: 900; color: #00d4ff;">👉 Hoy desde solo $25/mes</p>
                 
-                <a href="#" class="cta-button" style="margin-top: 30px;">🟩 Quiero Acceder Ahora</a>
+                <a href="#cta" class="cta-button" style="margin-top: 30px;">🟩 Quiero Acceder Ahora</a>
             </div>
         </div>
     </section>
@@ -623,13 +622,13 @@
                 <h3>🎁 Oferta exclusiva para miembros fundadores</h3>
                 <p>🕒 Cupos limitados – Solo por este lanzamiento</p>
                 <p>🔥 Accedé ahora y desbloqueá todos los bonus + mentorías en vivo</p>
-                <a href="#" class="cta-button" style="margin-top: 30px;">🟦 Sí, Quiero Profesionalizar Mi Negocio Freelance</a>
+                <a href="#cta" class="cta-button" style="margin-top: 30px;">🟦 Sí, Quiero Profesionalizar Mi Negocio Freelance</a>
             </div>
         </div>
     </section>
 
     <!-- Final Close -->
-    <section class="final-cta">
+    <section class="final-cta" id="cta">
         <div class="container">
             <div class="fade-in">
                 <h2>✅ Tu Momento es Ahora</h2>
@@ -637,9 +636,9 @@
                     Weblancer Pro transforma diseñadores web técnicos en freelancers premium. Tenés el talento. Lo que te falta es el sistema.
                 </p>
                 <div class="mockup-img">
-                    <img src="assets/img/mockup.png" alt="">
+                    <img src="assets/img/mockup.png" alt="mockup de contenidos de Weblancer">
                 </div>
-                <a href="#" class="cta-button" style="font-size: 1.3rem; padding: 25px 50px;">
+                <a href="https://nas.io/es-mx/weblancer/" class="cta-button" style="font-size: 1.3rem; padding: 25px 50px;">
                     🟨 Quiero Convertirme en Freelancer Premium
                 </a>
             </div>
@@ -676,16 +675,6 @@
         // Observe all fade-in elements
         document.querySelectorAll('.fade-in').forEach(el => {
             observer.observe(el);
-        });
-
-        // Add click tracking (you can replace with your actual tracking)
-        document.querySelectorAll('.cta-button, .sticky-btn').forEach(button => {
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
-                console.log('CTA clicked:', this.textContent);
-                // Add your conversion tracking here
-                alert('¡Perfecto! Aquí conectarías con tu sistema de pagos.');
-            });
         });
 
         // Add smooth scrolling for better UX
