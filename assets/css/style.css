@@ -1256,14 +1256,6 @@ footer {
     right: 20px;
   }
 
-  .projects-hero-content h1 {
-    font-size: 2rem;
-  }
-
-  .portfolio-grid {
-    grid-template-columns: 1fr;
-  }
-
   .testimonial-card {
     padding: 20px;
   }
